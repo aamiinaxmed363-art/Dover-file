@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  zoumfx-vip-bot:
+    build: .
+    container_name: zoumfx-vip-bot
+    restart: always
+    environment:
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - ADMIN_TELEGRAM_USER_ID=${ADMIN_TELEGRAM_USER_ID:-6006131461}
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+      - VIP_CHANNEL_ID=${VIP_CHANNEL_ID:--1002973852823}
+      - ZOUMFX_VIP_DB_PATH=/app/data/zoumfx_vip_usage.sqlite3
+    volumes:
+      - bot_data:/app/data
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  bot_data:
